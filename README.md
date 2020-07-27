@@ -2,7 +2,7 @@
 
 Android 自定义lint教学
 
-主要功能罗略:
+主要功能罗列下:
 
 1. EventSpaceDetector Event 传入参数是否含有空格扫描
 2. GlideDetector 不允许直接使用glide 以及直接用BitmapFactory
