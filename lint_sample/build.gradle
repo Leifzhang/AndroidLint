@@ -1,0 +1,16 @@
+apply plugin: 'java-library'
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    compileOnly 'com.android.tools.lint:lint-api:27.0.1'
+    compileOnly 'com.android.tools.lint:lint-checks:27.0.1'
+}
+
+sourceCompatibility = "1.8"
+targetCompatibility = "1.8"
+
+jar {
+    manifest {
+        attributes("Lint-Registry-v2": "com.kornos.lint.demo.TestIssueRegistry")
+    }
+}
