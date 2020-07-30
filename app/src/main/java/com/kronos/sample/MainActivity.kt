@@ -20,9 +20,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         Log.i("", "")
-        Router.startPageUri(this, "")
-        Router.getService(A::class.java, "")
-        DefaultUriRequest(this, "").start()
+      //  Router.startPageUri(this, "")
+      //  Router.getService(A::class.java, "")
+      //  DefaultUriRequest(this, "").start()
         Glide.with(this)
         val image = BitmapFactory.decodeFile("")
         Observable.just("").subscribe()
@@ -30,8 +30,8 @@ class MainActivity : AppCompatActivity() {
         tv1.text = String.format("%s", text)
         Event("  123")
         Event("111")
-        Thread({
+        Thread {
 
-        })
+        }
     }
 }

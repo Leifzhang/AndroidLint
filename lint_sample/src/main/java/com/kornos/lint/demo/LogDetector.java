@@ -24,7 +24,6 @@ import java.util.List;
  * Date:2019-07-04
  * Desc:Avoid using Log class directly
  */
-@SuppressWarnings("UnstableApiUsage")
 public class LogDetector extends Detector implements Detector.UastScanner {
 
     public static final Issue ISSUE = Issue.create(
