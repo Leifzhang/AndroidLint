@@ -1,1 +1,3 @@
+include ':lint_spi'
+include ':lint_sample_1'
 include ':app', ':lint_sample'

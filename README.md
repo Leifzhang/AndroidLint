@@ -11,3 +11,7 @@ Android 自定义lint教学
 5. RouteDetector 不允许项目内直接使用路由 
 6. ThreadDetector 这个是别人写的 线程构造的检查
 
+
+## 支持动态拔插的能力
+
+通过SPI机制，可以允许自定义lint规则，然后动态化合并到Lintcheck中，增加lint的可拓展性。

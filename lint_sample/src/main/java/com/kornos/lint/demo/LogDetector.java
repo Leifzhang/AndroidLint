@@ -79,7 +79,6 @@ public class LogDetector extends Detector implements Detector.UastScanner {
     }
 
     private void reportAllocation(JavaContext context, UCallExpression node) {
-
         context.report(ISSUE,
                 node,
                 context.getLocation(node),

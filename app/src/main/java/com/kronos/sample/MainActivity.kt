@@ -3,7 +3,9 @@ package com.kronos.sample
 import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.util.Log
+import android.widget.ImageView
 import androidx.annotation.NonNull
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.sankuai.waimai.router.Router
@@ -19,10 +21,14 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        Log.i("", "")
         Router.startPageUri(this, "")
         Router.getService(A::class.java, "")
+        Thread {
+
+        }
+        AlertDialog.Builder(this).show()
         DefaultUriRequest(this, "").start()
+        Log.i("", "")
         Glide.with(this)
         val image = BitmapFactory.decodeFile("")
         Observable.just("").subscribe()
@@ -30,8 +36,10 @@ class MainActivity : AppCompatActivity() {
         tv1.text = String.format("%s", text)
         Event("  123")
         Event("111")
-        Thread({
+    }
 
-        })
+    override fun onResume() {
+        super.onResume()
+        val bimage = findViewById<ImageView>(R.id.tv1)
     }
 }

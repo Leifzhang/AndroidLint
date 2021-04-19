@@ -13,23 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.kornos.lint.demo;
+package com.kornos.lint.demo
 
-import com.android.tools.lint.client.api.IssueRegistry;
-import com.android.tools.lint.detector.api.ApiKt;
-import com.android.tools.lint.detector.api.Issue;
-
-import java.util.Arrays;
-import java.util.List;
+import com.android.tools.lint.client.api.IssueRegistry
+import com.android.tools.lint.detector.api.Issue
+import com.kronos.lint.spi.LintSpi
+import java.util.*
 
 /*
  * The list of issues that will be checked when running <code>lint</code>.
  */
-public class TestIssueRegistry extends IssueRegistry {
+class TestIssueRegistry : IssueRegistry() {
 
-    @Override
-    public List<Issue> getIssues() {
-        return Arrays.asList(
+    override val issues: List<Issue>
+        get() {
+            val lintList = mutableListOf<Issue>(
                 RouteDetector.ISSUE,
                 RouteDetector.CALL_ISSUE,
                 LogDetector.ISSUE,
@@ -37,12 +35,16 @@ public class TestIssueRegistry extends IssueRegistry {
                 ThreadDetector.ISSUE,
                 PngResourceDetector.ISSUE,
                 EventSpaceDetector.ISSUE
-        );
-    }
+            )
+            ServiceLoader.load(LintSpi::class.java).forEach {
+                it.issue().forEach { issue ->
+                    lintList.add(issue)
+                }
+            }
+            return lintList
+        }
 
-    @Override
-    public int getApi() {
-        return ApiKt.CURRENT_API;
-    }
+
+    override val api: Int
+        get() = 5
 }
-
