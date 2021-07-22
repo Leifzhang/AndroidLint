@@ -14,6 +14,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.uast.UCallExpression;
 import org.jetbrains.uast.UElement;
 import org.jetbrains.uast.UExpression;
+import org.jetbrains.uast.UField;
 import org.jetbrains.uast.ULiteralExpression;
 import org.jetbrains.uast.UReferenceExpression;
 import org.jetbrains.uast.UastUtils;
@@ -53,28 +54,33 @@ public class EventSpaceDetector extends Detector implements Detector.UastScanner
                 checkIsConstructorCall(node);
             }
 
+
+
             private void checkIsConstructorCall(UCallExpression node) {
                 if (!UastExpressionUtils.isConstructorCall(node)) {
                     return;
                 }
                 UReferenceExpression classRef = node.getClassReference();
-                if (classRef != null) {
-                    String className = UastUtils.getQualifiedName(classRef);
-                    String value = packageName + ".Event";
-                    List<UExpression> args = node.getValueArguments();
-                    for (UExpression element : args) {
-                        if (element instanceof ULiteralExpression) {
-                            Object stringValue = ((ULiteralExpression) element).getValue();
-                            if (stringValue instanceof String && stringValue.toString().contains(" ")) {
-                                if (!TextUtils.isEmpty(value) && className.equals(value)) {
-                                    context.report(ISSUE, node, context.getLocation(node),
-                                            "谁给你的胆子用空格的");
+                try {
+                    if (classRef != null) {
+                        String className = UastUtils.getQualifiedName(classRef);
+                        String value = packageName + ".Event";
+                        List<UExpression> args = node.getValueArguments();
+                        for (UExpression element : args) {
+                            if (element instanceof ULiteralExpression) {
+                                Object stringValue = ((ULiteralExpression) element).getValue();
+                                if (stringValue instanceof String && stringValue.toString().contains(" ")) {
+                                    if (!TextUtils.isEmpty(value) && className.equals(value)) {
+                                        context.report(ISSUE, node, context.getLocation(node),
+                                                "谁给你的胆子用空格的");
+                                    }
                                 }
                             }
+                            element.getExpressionType();
                         }
-                        element.getExpressionType();
                     }
-
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
             }
         };

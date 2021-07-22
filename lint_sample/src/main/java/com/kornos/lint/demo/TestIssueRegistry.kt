@@ -17,8 +17,6 @@ package com.kornos.lint.demo
 
 import com.android.tools.lint.client.api.IssueRegistry
 import com.android.tools.lint.detector.api.Issue
-import com.kronos.lint.spi.LintSpi
-import java.util.*
 
 /*
  * The list of issues that will be checked when running <code>lint</code>.
@@ -32,19 +30,18 @@ class TestIssueRegistry : IssueRegistry() {
                 RouteDetector.CALL_ISSUE,
                 LogDetector.ISSUE,
                 GlideUnusedDetector.ISSUE,
-                ThreadDetector.ISSUE,
+                //  ThreadDetector.ISSUE,
                 PngResourceDetector.ISSUE,
-                EventSpaceDetector.ISSUE
+                EventSpaceDetector.ISSUE,
+                SafeFileDetector.ISSUE,
+                DynamicLint.ISSUE
             )
-            ServiceLoader.load(LintSpi::class.java).forEach {
-                it.issue().forEach { issue ->
-                    lintList.add(issue)
-                }
-            }
+            /*   ServiceLoader.load(LintSpi::class.java).forEach {
+                   it.issue().forEach { issue ->
+                       lintList.add(issue)
+                   }
+               }*/
             return lintList
         }
 
-
-    override val api: Int
-        get() = 5
 }

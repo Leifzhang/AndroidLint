@@ -1,0 +1,18 @@
+{
+  "methods": [
+    {
+      "name_regex": "java.io.File.delete",
+      "message": "gie gie 别删除了好吗"
+    },
+    {
+      "name_regex": "",
+      "message": ""
+    }
+  ],
+  "constructions": [
+    {
+      "name_regex": "",
+      "message": ""
+    }
+  ]
+}

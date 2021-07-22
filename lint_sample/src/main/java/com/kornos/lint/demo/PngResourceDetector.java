@@ -41,7 +41,7 @@ public class PngResourceDetector extends Detector implements Detector.ResourceFo
             if (file.isFile()) {
                 long length = file.length();
                 if (length > 10) {
-                    System.out.print(file.toString() + "\n");
+                    //   System.out.print(file.toString() + "\n");
                     context.report(ISSUE, Location.create(file),
                             "This code mentions `lint`: **Congratulations**");
                 }

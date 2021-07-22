@@ -31,6 +31,4 @@ class TestIssueRegistry : IssueRegistry() {
         }
 
 
-    override val api: Int
-        get() = 5
 }

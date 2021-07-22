@@ -51,7 +51,7 @@ public class LogDetector extends Detector implements Detector.UastScanner {
 
     class LogHandler extends UElementHandler {
 
-        private JavaContext context;
+        private final JavaContext context;
 
         LogHandler(JavaContext context) {
             this.context = context;
@@ -60,20 +60,24 @@ public class LogDetector extends Detector implements Detector.UastScanner {
         @Override
         public void visitCallExpression(@NotNull UCallExpression node) {
             if (!UastExpressionUtils.isMethodCall(node)) return;
-            if (node.getReceiver() != null
-                    && node.getMethodName() != null) {
-                String methodName = node.getMethodName();
-                if (methodName.equals("i")
-                        || methodName.equals("d")
-                        || methodName.equals("e")
-                        || methodName.equals("v")
-                        || methodName.equals("w")
-                        || methodName.equals("wtf")) {
-                    PsiMethod method = node.resolve();
-                    if (context.getEvaluator().isMemberInClass(method, "android.util.Log")) {
-                        reportAllocation(context, node);
+            try {
+                if (node.getReceiver() != null
+                        && node.getMethodName() != null) {
+                    String methodName = node.getMethodName();
+                    if (methodName.equals("i")
+                            || methodName.equals("d")
+                            || methodName.equals("e")
+                            || methodName.equals("v")
+                            || methodName.equals("w")
+                            || methodName.equals("wtf")) {
+                        PsiMethod method = node.resolve();
+                        if (context.getEvaluator().isMemberInClass(method, "android.util.Log")) {
+                            reportAllocation(context, node);
+                        }
                     }
                 }
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         }
     }
