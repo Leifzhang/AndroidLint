@@ -2,7 +2,10 @@
   "methods": [
     {
       "name_regex": "java.io.File.delete",
-      "message": "gie gie 别删除了好吗"
+      "message": "gie gie 别删除了好吗",
+      "excludes": [
+        "com.kronos.sample.MainActivity"
+      ]
     },
     {
       "name_regex": "",

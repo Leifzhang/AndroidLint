@@ -18,34 +18,27 @@ class LintMatcher {
         /**
          * 匹配方法
          */
-        fun matchMethod(
-            baseConfig: DynamicEntity,
-            node: UCallExpression
-        ): Boolean {
+        fun matchMethod(baseConfig: DynamicEntity, node: UCallExpression): Boolean {
             return match(
-                baseConfig.name_regex,
                 baseConfig.name_regex,
                 node.getQualifiedName(),
                 node.getContainingUClass()?.qualifiedName,
-                emptyList(), ""
+                baseConfig.excludes?.apply {
+                    print("excludes :$this \r\n")
+                } ?: emptyList(), ""
             )
         }
 
         /**
          * 匹配构造方法
          */
-        fun matchConstruction(
-            baseConfig: DynamicEntity,
-            node: UCallExpression
-        ): Boolean {
+        fun matchConstruction(baseConfig: DynamicEntity, node: UCallExpression): Boolean {
             return match(
                 baseConfig.name_regex,
-                baseConfig.name_regex,
-                //不要使用node.resolve()获取构造方法，在没定义构造方法使用默认构造的时候返回值为null
                 node.classReference.getQualifiedName(),
+                //不要使用node.resolve()获取构造方法，在没定义构造方法使用默认构造的时候返回值为null
                 node.getContainingUClass()?.qualifiedName,
-                emptyList(),
-                ""
+                emptyList(), ""
             )
         }
 
@@ -59,8 +52,8 @@ class LintMatcher {
             node.supers.forEach {
                 if (match(
                         baseConfig.name_regex,
-                        baseConfig.name_regex, it.qualifiedName,
-                        node.qualifiedName, emptyList(), ""
+                        it.qualifiedName, node.qualifiedName,
+                        emptyList(), ""
                     )
                 ) return true
             }
@@ -75,7 +68,6 @@ class LintMatcher {
             fileName: String
         ) = match(
             baseConfig.name_regex,
-            baseConfig.name_regex,
             fileName
         )
 
@@ -88,9 +80,9 @@ class LintMatcher {
         ): Boolean {
             return match(
                 baseConfig.name_regex,
-                baseConfig.name_regex,
                 node.qualifiedName,
-                node.containingClass?.qualifiedName, emptyList(), ""
+                node.containingClass?.qualifiedName,
+                emptyList(), ""
             )
         }
 
@@ -100,8 +92,7 @@ class LintMatcher {
          * inClassName是当前需要匹配的方法所在类
          * exclude是要排除匹配的类（目前以类的粒度去排除）
          */
-        fun match(
-            name: String?,
+        private fun match(
             nameRegex: String?,
             qualifiedName: String?,
             inClassName: String? = null,
@@ -111,6 +102,7 @@ class LintMatcher {
             qualifiedName ?: return false
 
             //排除
+
             if (inClassName != null && inClassName.isNotEmpty()) {
                 if (exclude.contains(inClassName)) return false
 
@@ -122,9 +114,6 @@ class LintMatcher {
                 }
             }
 
-            if (name != null && name.isNotEmpty() && name == qualifiedName) {//优先匹配name
-                return true
-            }
             if (nameRegex != null && nameRegex.isNotEmpty() &&
                 Pattern.compile(nameRegex).matcher(qualifiedName).find()
             ) {//在匹配nameRegex

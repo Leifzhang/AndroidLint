@@ -1,0 +1,14 @@
+{
+  "methods": [
+    {
+      "name_regex": "java.lang.System.currentTimeMillis",
+      "message": "卧槽 66666"
+    }
+  ],
+  "constructions": [
+    {
+      "name_regex": "",
+      "message": ""
+    }
+  ]
+}

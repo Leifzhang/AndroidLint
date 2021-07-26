@@ -22,15 +22,6 @@ class DynamicLint : Detector(), Detector.UastScanner {
 
     lateinit var globalConfig: DynamicConfigEntity
 
-    override fun beforeCheckFile(context: Context) {
-        super.beforeCheckFile(context)
-        println("beforeCheckFile:" + context.project + "\r\n")
-    }
-
-    override fun beforeCheckEachProject(context: Context) {
-        super.beforeCheckEachProject(context)
-        println("beforeCheckEachProject:" + context.project + "\r\n")
-    }
 
     override fun beforeCheckRootProject(context: Context) {
         super.beforeCheckRootProject(context)
