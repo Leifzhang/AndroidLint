@@ -36,6 +36,7 @@ dependencies {
     implementation "io.reactivex.rxjava2:rxjava:2.2.18"
     implementation 'androidx.recyclerview:recyclerview:1.2.0'
     implementation project(":demo1")
+    implementation project(":subSample:demo2")
     lintChecks project(":lint_sample")
     // lintChecks project(":lint_sample_1")
     //  lintChecks project(":lint_sample_2")

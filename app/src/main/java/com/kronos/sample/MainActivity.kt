@@ -1,5 +1,6 @@
 package com.kronos.sample
 
+import android.annotation.SuppressLint
 import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.os.Environment

@@ -11,6 +11,7 @@ import com.android.tools.lint.detector.api.Severity
 import com.android.tools.lint.detector.api.SourceCodeScanner
 import com.android.tools.lint.detector.api.TextFormat
 import org.jetbrains.uast.UBinaryExpressionWithType
+import org.jetbrains.uast.UCallExpression
 import org.jetbrains.uast.UElement
 import org.jetbrains.uast.UastBinaryExpressionWithTypeKind
 
@@ -28,6 +29,7 @@ class ContextCastDetector : Detector(), SourceCodeScanner {
             Implementation(ContextCastDetector::class.java, Scope.JAVA_FILE_SCOPE)
         )
     }
+
 
     override fun getApplicableUastTypes(): List<Class<out UElement>>? {
         return listOf(UBinaryExpressionWithType::class.java)

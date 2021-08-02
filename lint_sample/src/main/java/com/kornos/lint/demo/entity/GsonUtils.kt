@@ -35,13 +35,26 @@ object GsonUtils {
         if (f.exists()) {
             return f
         }
-        f = File(projectDir.parentFile.absolutePath + "/.codequality", DYNAMIC_FILE_NAME)
+        val codeQualifiedFile = findCodeQuality(projectDir) ?: return null
+        println("codeQualifiedFile:${codeQualifiedFile.path} \r\n")
+        f = File(codeQualifiedFile, DYNAMIC_FILE_NAME)
         if (f.exists()) {
             return f
         }
-
         return null
     }
+
+    private fun findCodeQuality(projectDir: File): File? {
+        if (projectDir.parent != null) {
+            val parent = projectDir.parentFile
+            val file = parent.listFiles()?.firstOrNull {
+                it.name == ".codequality" && it.isDirectory
+            }
+            return file ?: findCodeQuality(parent)
+        }
+        return null
+    }
+
 
     private const val DYNAMIC_FILE_NAME = "dynamic.json"
 }
