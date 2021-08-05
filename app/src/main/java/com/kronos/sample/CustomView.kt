@@ -12,6 +12,5 @@ import android.widget.ImageView
 class CustomView(context: Context) : FrameLayout(context) {
     init {
         LayoutInflater.from(context).inflate(R.layout.activity_main, this)
-        val view = findViewById<ImageView>(R.id.tv1)
     }
 }

@@ -1,5 +1,6 @@
 package com.kronos.sample
 
+import android.annotation.SuppressLint
 import android.util.Log
 
 object Logger {

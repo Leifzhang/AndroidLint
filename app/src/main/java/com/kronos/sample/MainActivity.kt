@@ -1,7 +1,9 @@
 package com.kronos.sample
 
+import android.annotation.SuppressLint
 import android.graphics.BitmapFactory
 import android.os.Bundle
+import android.os.Environment
 import android.util.Log
 import android.widget.ImageView
 import androidx.annotation.NonNull
@@ -13,6 +15,9 @@ import com.sankuai.waimai.router.annotation.RouterPage
 import com.sankuai.waimai.router.common.DefaultUriRequest
 import io.reactivex.Observable
 import kotlinx.android.synthetic.main.activity_main.*
+import java.io.File
+import java.io.InputStream
+import java.io.OutputStream
 
 
 @RouterPage(path = ["/test/a"])
@@ -36,10 +41,12 @@ class MainActivity : AppCompatActivity() {
         tv1.text = String.format("%s", text)
         Event("  123")
         Event("111")
+        val path = Environment.getExternalStorageDirectory()
+        val otherPath = Environment.getDownloadCacheDirectory()
+        val test = Environment.DIRECTORY_PICTURES
+        //File(Environment.getExternalStorageDirectory(), Environment.DIRECTORY_ALARMS)
+        val value = "Pictures"
+        File(Environment.DIRECTORY_PICTURES, "").delete()
     }
 
-    override fun onResume() {
-        super.onResume()
-        val bimage = findViewById<ImageView>(R.id.tv1)
-    }
 }

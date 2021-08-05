@@ -1,0 +1,8 @@
+methods:
+  - name_regex: master
+    message: https://github.com/Leifzhang/QRScaner.git
+  - name_regex: master
+    message: https://github.com/Leifzhang/QRScaner.git
+constructions:
+  - name_regex: 123
+    message: https://github.com/Leifzhang/QRScaner.git

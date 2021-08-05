@@ -28,7 +28,7 @@ public class RouteDetector extends Detector implements Detector.UastScanner {
                     RouteDetector.class,
                     Scope.JAVA_FILE_SCOPE));
 
-    static final Issue CALL_ISSUE = ISSUE.create("router_call_issue",    //唯一 ID
+    static final Issue CALL_ISSUE = Issue.create("router_call_issue",    //唯一 ID
             "不要直接引用WM router",    //简单描述
             "使用项目封装的路由中间件完成跳转",  //详细描述
             Category.CORRECTNESS,   //问题种类（正确性、安全性等）
@@ -73,28 +73,36 @@ public class RouteDetector extends Detector implements Detector.UastScanner {
                 if (!UastExpressionUtils.isConstructorCall(node)) {
                     return;
                 }
-                UReferenceExpression classRef = node.getClassReference();
-                if (classRef != null) {
-                    String className = UastUtils.getQualifiedName(classRef);
-                    String uriValue = WM_ROUTER_PACKAGE + ".common.DefaultUriRequest";
-                    String pageValue = WM_ROUTER_PACKAGE + ".common.DefaultPageUriRequest";
+                try {
+                    UReferenceExpression classRef = node.getClassReference();
+                    if (classRef != null) {
+                        String className = UastUtils.getQualifiedName(classRef);
+                        String uriValue = WM_ROUTER_PACKAGE + ".common.DefaultUriRequest";
+                        String pageValue = WM_ROUTER_PACKAGE + ".common.DefaultPageUriRequest";
 
-                    if (className.equals(uriValue) || className.equals(pageValue)) {
-                        context.report(CALL_ISSUE, node, context.getLocation(node),
-                                "请使用项目提供的路由中间件 ");
+                        if (className.equals(uriValue) || className.equals(pageValue)) {
+                            context.report(CALL_ISSUE, node, context.getLocation(node),
+                                    "请使用项目提供的路由中间件 ");
+                        }
                     }
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
             }
 
             private void checkIsMethod(UCallExpression node) {
-                if (UastExpressionUtils.isMethodCall(node)) {
-                    if (node.getReceiver() != null && node.getMethodName() != null) {
-                        PsiMethod method = node.resolve();
-                        if (context.getEvaluator().isMemberInClass(method, WM_ROUTER_CALL)) {
-                            context.report(CALL_ISSUE, node, context.getLocation(node),
-                                    "请使用项目提供的路由中间件");
+                try {
+                    if (UastExpressionUtils.isMethodCall(node)) {
+                        if (node.getReceiver() != null && node.getMethodName() != null) {
+                            PsiMethod method = node.resolve();
+                            if (context.getEvaluator().isMemberInClass(method, WM_ROUTER_CALL)) {
+                                context.report(CALL_ISSUE, node, context.getLocation(node),
+                                        "请使用项目提供的路由中间件");
+                            }
                         }
                     }
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
             }
 

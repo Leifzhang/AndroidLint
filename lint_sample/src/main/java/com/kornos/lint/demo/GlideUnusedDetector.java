@@ -53,26 +53,29 @@ public class GlideUnusedDetector extends Detector implements Detector.UastScanne
                 if (!UastExpressionUtils.isMethodCall(node)) {
                     return;
                 }
-                if (node.getReceiver() != null
-                        && node.getMethodName() != null) {
-                    String methodName = node.getMethodName();
-                    if (methodName.equals("with")) {
-                        PsiMethod method = node.resolve();
-                        String value = "com.bumptech.glide.Glide";
-                        if (context.getEvaluator().isMemberInClass(method, value)) {
-                            context.report(ISSUE, node, context.getLocation(node),
-                                    "请使用项目提供的路由中间件");
+                try {
+                    if (node.getReceiver() != null && node.getMethodName() != null) {
+                        String methodName = node.getMethodName();
+                        if (methodName.equals("with")) {
+                            PsiMethod method = node.resolve();
+                            String value = "com.bumptech.glide.Glide";
+                            if (context.getEvaluator().isMemberInClass(method, value)) {
+                                context.report(ISSUE, node, context.getLocation(node),
+                                        "请使用项目提供的路由中间件");
+                            }
+                        }
+                        if (methodName.equals("decodeFile") || methodName.equals("decodeResourceStream")
+                                || methodName.equals("decodeResource")) {
+                            PsiMethod method = node.resolve();
+                            String value = "android.graphics.BitmapFactory";
+                            if (context.getEvaluator().isMemberInClass(method, value)) {
+                                context.report(ISSUE, node, context.getLocation(node),
+                                        "请使用项目提供的路由中间件");
+                            }
                         }
                     }
-                    if (methodName.equals("decodeFile") || methodName.equals("decodeResourceStream")
-                            || methodName.equals("decodeResource")) {
-                        PsiMethod method = node.resolve();
-                        String value = "android.graphics.BitmapFactory";
-                        if (context.getEvaluator().isMemberInClass(method, value)) {
-                            context.report(ISSUE, node, context.getLocation(node),
-                                    "请使用项目提供的路由中间件");
-                        }
-                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
             }
 
