@@ -1,0 +1,21 @@
+{
+  "methods": [
+    {
+      "name_regex": "java.io",
+      "message": "gie gie 别删除了好吗  覆盖",
+      "excludes": [
+        "com.kronos.sample.MainActivity"
+      ]
+    },
+    {
+      "name_regex": "",
+      "message": ""
+    }
+  ],
+  "constructions": [
+    {
+      "name_regex": "",
+      "message": ""
+    }
+  ]
+}

@@ -16,11 +16,6 @@ object GsonUtils {
         val f = getFile(projectDir)
         return f?.let { file ->
             gson.fromJson(file.bufferedReader(), DynamicConfigEntity::class.java).apply {
-                methods.forEach {
-                    it.excludes?.apply {
-                        println("excludes:$this \r\n")
-                    }
-                }
             }
         } ?: DynamicConfigEntity()
     }

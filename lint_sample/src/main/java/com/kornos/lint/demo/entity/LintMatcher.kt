@@ -24,7 +24,7 @@ class LintMatcher {
                 node.getQualifiedName(),
                 node.getContainingUClass()?.qualifiedName,
                 baseConfig.excludes?.apply {
-                    print("excludes :$this \r\n")
+                  //  print("excludes :$this \r\n")
                 } ?: emptyList(), ""
             )
         }
