@@ -1,7 +1,9 @@
 buildscript {
     ext.kotlin_version = '1.4.30'
     repositories {
-        jcenter()
+        maven {
+            url 'https://maven.aliyun.com/repository/central/'
+        }
         google()
     }
 
@@ -9,13 +11,15 @@ buildscript {
         classpath 'com.android.tools.build:gradle:4.1.3'
         classpath 'com.jakewharton:butterknife-gradle-plugin:10.2.1'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        classpath("com.sankuai.waimai.router:plugin:1.2.0")
+        //   classpath("com.sankuai.waimai.router:plugin:1.2.0")
     }
 }
 
 allprojects {
     repositories {
-        jcenter()
+        maven {
+            url 'https://maven.aliyun.com/repository/central/'
+        }
         google()
     }
 }
@@ -23,3 +27,12 @@ allprojects {
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
+
+
+/*
+task copyDynamic(type: Copy) {
+    println("===copy Plugin Source start===")
+    from "${project.rootDir}/.codequality/dynamic.json"
+    into "${project.rootDir}/app/src/debug/assets"
+    println("===copy Plugin Source end===")
+}*/

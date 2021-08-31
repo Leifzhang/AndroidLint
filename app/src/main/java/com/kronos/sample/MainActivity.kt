@@ -10,29 +10,26 @@ import androidx.annotation.NonNull
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
-import com.sankuai.waimai.router.Router
-import com.sankuai.waimai.router.annotation.RouterPage
-import com.sankuai.waimai.router.common.DefaultUriRequest
 import io.reactivex.Observable
 import kotlinx.android.synthetic.main.activity_main.*
 import java.io.File
 import java.io.InputStream
 import java.io.OutputStream
+import java.util.zip.ZipEntry
 
 
-@RouterPage(path = ["/test/a"])
 class MainActivity : AppCompatActivity() {
     @NonNull
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        Router.startPageUri(this, "")
-        Router.getService(A::class.java, "")
+        //     Router.startPageUri(this, "")
+        //   Router.getService(A::class.java, "")
         Thread {
 
         }
         AlertDialog.Builder(this).show()
-        DefaultUriRequest(this, "").start()
+//        DefaultUriRequest(this, "").start()
         Log.i("", "")
         Glide.with(this)
         val image = BitmapFactory.decodeFile("")
@@ -47,6 +44,10 @@ class MainActivity : AppCompatActivity() {
         //File(Environment.getExternalStorageDirectory(), Environment.DIRECTORY_ALARMS)
         val value = "Pictures"
         File(Environment.DIRECTORY_PICTURES, "").delete()
+        if (this is AppCompatActivity) {
+
+        }
+        val entry = ZipEntry("zip")
     }
 
 }

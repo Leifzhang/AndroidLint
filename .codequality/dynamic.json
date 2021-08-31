@@ -1,21 +1,17 @@
 {
   "methods": [
     {
-      "name_regex": "java.io.File.delete",
-      "message": "gie gie 别删除了好吗",
+      "name_regex": "java.io.File",
+      "message": "gie gie 别删除了好吗  覆盖",
       "excludes": [
-        "com.kronos.sample.MainActivity"
+
       ]
-    },
-    {
-      "name_regex": "",
-      "message": ""
     }
   ],
   "constructions": [
     {
-      "name_regex": "",
-      "message": ""
+      "name_regex": "java.util.zip.ZipEntry",
+      "message": "西内 2333333"
     }
   ]
 }

@@ -34,7 +34,8 @@ class TestIssueRegistry : IssueRegistry() {
                 PngResourceDetector.ISSUE,
                 EventSpaceDetector.ISSUE,
                 SafeFileDetector.ISSUE,
-                DynamicLint.ISSUE
+                DynamicLint.ISSUE,
+                ClassSampleDetector.ISSUE
             )
             /*   ServiceLoader.load(LintSpi::class.java).forEach {
                    it.issue().forEach { issue ->

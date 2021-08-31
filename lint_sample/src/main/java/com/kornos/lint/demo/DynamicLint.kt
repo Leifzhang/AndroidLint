@@ -25,9 +25,7 @@ class DynamicLint : Detector(), Detector.UastScanner {
 
     override fun beforeCheckRootProject(context: Context) {
         super.beforeCheckRootProject(context)
-        println("beforeCheckRootProject:" + context.mainProject + "\r\n")
         globalConfig = GsonUtils.inflate(context.project.dir)
-        println("dynamicConfig:" + globalConfig.methods.size + "\r\n")
     }
 
     override fun getApplicableUastTypes(): List<Class<out UElement>>? {
