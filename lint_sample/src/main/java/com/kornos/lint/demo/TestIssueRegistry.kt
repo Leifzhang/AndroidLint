@@ -35,7 +35,7 @@ class TestIssueRegistry : IssueRegistry() {
                 EventSpaceDetector.ISSUE,
                 SafeFileDetector.ISSUE,
                 DynamicLint.ISSUE,
-                ClassSampleDetector.ISSUE
+                PrivacyClassDetector.ISSUE
             )
             /*   ServiceLoader.load(LintSpi::class.java).forEach {
                    it.issue().forEach { issue ->
