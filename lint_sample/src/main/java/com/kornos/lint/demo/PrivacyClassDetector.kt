@@ -1,7 +1,8 @@
 package com.kornos.lint.demo
 
 import com.android.tools.lint.detector.api.*
-import com.intellij.psi.PsiClass
+import com.kornos.lint.demo.privacy.PrivacyAsmEntity
+import com.kornos.lint.demo.privacy.PrivacyHelper
 import org.objectweb.asm.tree.AbstractInsnNode
 import org.objectweb.asm.tree.ClassNode
 import org.objectweb.asm.tree.MethodInsnNode
@@ -13,7 +14,7 @@ import org.objectweb.asm.tree.MethodNode
  *  @Since 2021/8/4
  *
  */
-class ClassSampleDetector : Detector(), Detector.ClassScanner {
+class PrivacyClassDetector : Detector(), Detector.ClassScanner {
 
     override fun checkClass(context: ClassContext, classNode: ClassNode) {
         super.checkClass(context, classNode)
@@ -26,7 +27,6 @@ class ClassSampleDetector : Detector(), Detector.ClassScanner {
         call: MethodInsnNode
     ) {
         super.checkCall(context, classNode, method, call)
-        print("classNode:${classNode.name} MethodNode:${method.name} \r\n")
     }
 
     override fun getApplicableAsmNodeTypes(): IntArray? {
@@ -41,14 +41,26 @@ class ClassSampleDetector : Detector(), Detector.ClassScanner {
         instruction: AbstractInsnNode
     ) {
         super.checkInstruction(context, classNode, method, instruction)
-        if (classNode.name == "com/kronos/sample/Event" && method.name == "unknownNameFun") {
-            print("checkInstruction AbstractInsnNode:${instruction.opcode} \r\n")
-            context.report(
-                ISSUE, context.getLocation(instruction),
-                "外圈q+内圈"
-            )
+        if (instruction is MethodInsnNode) {
+            if (instruction.isPrivacy() != null) {
+                print("checkInstruction AbstractInsnNode:${instruction.opcode} \r\n")
+                context.report(
+                    ISSUE, context.getLocation(instruction),
+                    "外圈q+内圈"
+                )
 
+            }
         }
+
+    }
+
+    private fun MethodInsnNode.isPrivacy(): PrivacyAsmEntity? {
+        val pair = PrivacyHelper.privacyList.firstOrNull {
+            val first = it
+            first.owner == owner && first.code == opcode && first.name == name && first.desc == desc
+        }
+        return pair
+
     }
 
     companion object {
@@ -59,7 +71,7 @@ class ClassSampleDetector : Detector(), Detector.ClassScanner {
             Category.CORRECTNESS,  //问题种类（正确性、安全性等）
             6, Severity.ERROR,  //问题严重程度（忽略、警告、错误）
             Implementation( //实现，包括处理实例和作用域
-                ClassSampleDetector::class.java,
+                PrivacyClassDetector::class.java,
                 Scope.CLASS_FILE_SCOPE
             )
         )

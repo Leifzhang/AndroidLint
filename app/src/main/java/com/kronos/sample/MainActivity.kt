@@ -2,8 +2,11 @@ package com.kronos.sample
 
 import android.annotation.SuppressLint
 import android.graphics.BitmapFactory
+import android.os.Build
 import android.os.Bundle
 import android.os.Environment
+import android.provider.Settings
+import android.telephony.TelephonyManager
 import android.util.Log
 import android.widget.ImageView
 import androidx.annotation.NonNull
@@ -48,6 +51,12 @@ class MainActivity : AppCompatActivity() {
 
         }
         val entry = ZipEntry("zip")
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            val manager = getSystemService(TelephonyManager::class.java)
+            val did = manager.deviceId
+            val androidId = Settings.Secure.getString(contentResolver, Settings.Secure.ANDROID_ID)
+            //     String newDid =PrivacyUtils.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
+        }
     }
 
 }
