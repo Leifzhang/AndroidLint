@@ -64,6 +64,11 @@ public class RouteDetector extends Detector implements Detector.UastScanner {
             }
 
             @Override
+            public void visitClass(@NotNull UClass node) {
+                super.visitClass(node);
+            }
+
+            @Override
             public void visitCallExpression(@NotNull UCallExpression node) {
                 checkIsMethod(node);
                 checkIsConstructorCall(node);

@@ -8,6 +8,7 @@ import android.os.Environment
 import android.provider.Settings
 import android.telephony.TelephonyManager
 import android.util.Log
+import android.view.ViewTreeObserver
 import android.widget.ImageView
 import androidx.annotation.NonNull
 import androidx.appcompat.app.AlertDialog
@@ -50,6 +51,11 @@ class MainActivity : AppCompatActivity() {
         if (this is AppCompatActivity) {
 
         }
+        tv1.viewTreeObserver.addOnPreDrawListener(object : ViewTreeObserver.OnPreDrawListener {
+            override fun onPreDraw(): Boolean {
+                return true
+            }
+        })
         val entry = ZipEntry("zip")
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             val manager = getSystemService(TelephonyManager::class.java)

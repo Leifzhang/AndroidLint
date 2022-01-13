@@ -30,7 +30,7 @@ class PrivacyClassDetector : Detector(), Detector.ClassScanner {
     }
 
     override fun getApplicableAsmNodeTypes(): IntArray? {
-        return intArrayOf(AbstractInsnNode.METHOD_INSN, AbstractInsnNode.FIELD_INSN)
+        return intArrayOf(AbstractInsnNode.METHOD_INSN)
     }
 
 
