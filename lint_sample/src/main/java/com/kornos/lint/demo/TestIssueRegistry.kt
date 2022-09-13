@@ -30,14 +30,15 @@ class TestIssueRegistry : IssueRegistry() {
                 RouteDetector.CALL_ISSUE,
                 LogDetector.ISSUE,
                 GlideUnusedDetector.ISSUE,
-                //  ThreadDetector.ISSUE,
+                ThreadDetector.ISSUE,
                 PngResourceDetector.ISSUE,
                 EventSpaceDetector.ISSUE,
                 SafeFileDetector.ISSUE,
                 DynamicLint.ISSUE,
                 PrivacyClassDetector.ISSUE,
                 ContextCastDetector.ISSUE,
-                PreDrawDetector.ISSUE
+                PreDrawDetector.ISSUE,
+                AlertDialogDetector.ISSUE
             )
             /*   ServiceLoader.load(LintSpi::class.java).forEach {
                    it.issue().forEach { issue ->

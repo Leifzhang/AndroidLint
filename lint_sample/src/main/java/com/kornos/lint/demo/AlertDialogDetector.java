@@ -1,4 +1,4 @@
-package com.kronos.lint.sample.spi;
+package com.kornos.lint.demo;
 
 import com.android.tools.lint.client.api.UElementHandler;
 import com.android.tools.lint.detector.api.Category;
