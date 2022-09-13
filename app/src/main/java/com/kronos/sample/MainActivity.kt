@@ -10,12 +10,12 @@ import android.telephony.TelephonyManager
 import android.util.Log
 import android.view.ViewTreeObserver
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.annotation.NonNull
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import io.reactivex.Observable
-import kotlinx.android.synthetic.main.activity_main.*
 import java.io.File
 import java.io.InputStream
 import java.io.OutputStream
@@ -39,7 +39,7 @@ class MainActivity : AppCompatActivity() {
         val image = BitmapFactory.decodeFile("")
         Observable.just("").subscribe()
         val text = "我想说"
-        tv1.text = String.format("%s", text)
+        findViewById<TextView>(R.id.tv1).text = String.format("%s", text)
         Event("  123")
         Event("111")
         val path = Environment.getExternalStorageDirectory()
@@ -51,7 +51,7 @@ class MainActivity : AppCompatActivity() {
         if (this is AppCompatActivity) {
 
         }
-        tv1.viewTreeObserver.addOnPreDrawListener(object : ViewTreeObserver.OnPreDrawListener {
+        findViewById<TextView>(R.id.tv1).viewTreeObserver.addOnPreDrawListener(object : ViewTreeObserver.OnPreDrawListener {
             override fun onPreDraw(): Boolean {
                 return true
             }
