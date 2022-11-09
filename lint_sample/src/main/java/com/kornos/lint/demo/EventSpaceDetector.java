@@ -9,7 +9,6 @@ import com.android.tools.lint.detector.api.JavaContext;
 import com.android.tools.lint.detector.api.Scope;
 import com.android.tools.lint.detector.api.Severity;
 
-import org.apache.http.util.TextUtils;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.uast.UCallExpression;
 import org.jetbrains.uast.UElement;
@@ -55,7 +54,6 @@ public class EventSpaceDetector extends Detector implements Detector.UastScanner
             }
 
 
-
             private void checkIsConstructorCall(UCallExpression node) {
                 if (!UastExpressionUtils.isConstructorCall(node)) {
                     return;
@@ -70,7 +68,7 @@ public class EventSpaceDetector extends Detector implements Detector.UastScanner
                             if (element instanceof ULiteralExpression) {
                                 Object stringValue = ((ULiteralExpression) element).getValue();
                                 if (stringValue instanceof String && stringValue.toString().contains(" ")) {
-                                    if (!TextUtils.isEmpty(value) && className.equals(value)) {
+                                    if (value != null && className.equals(value)) {
                                         context.report(ISSUE, node, context.getLocation(node),
                                                 "谁给你的胆子用空格的");
                                     }

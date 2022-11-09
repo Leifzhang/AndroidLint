@@ -22,6 +22,20 @@ allprojects {
         google()
     }
 
+    afterEvaluate {
+        if (project.plugins.hasPlugin('com.android.application')
+                || project.plugins.hasPlugin('com.android.library')) {
+            def android = project.extensions.getByName('android')
+            android.lintOptions {
+                abortOnError false
+                absolutePaths false
+                checkReleaseBuilds false
+                xmlReport true
+            }
+        }
+    }
+
+
 }
 
 task clean(type: Delete) {
