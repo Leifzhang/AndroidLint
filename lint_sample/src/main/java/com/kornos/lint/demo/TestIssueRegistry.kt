@@ -39,7 +39,8 @@ class TestIssueRegistry : IssueRegistry() {
                 ContextCastDetector.ISSUE,
                 PreDrawDetector.ISSUE,
                 AlertDialogDetector.ISSUE,
-                FragmentHiddenDetector.ISSUE
+                FragmentHiddenDetector.ISSUE,
+                KAEDetector.ISSUE
             )
             /*   ServiceLoader.load(LintSpi::class.java).forEach {
                    it.issue().forEach { issue ->

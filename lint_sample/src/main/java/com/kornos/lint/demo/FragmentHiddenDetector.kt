@@ -15,9 +15,6 @@ import org.jetbrains.uast.UElement
  *
  */
 class FragmentHiddenDetector : Detector(), Detector.UastScanner {
-/*    override fun getApplicableUastTypes(): List<Class<out UElement>> {
-        return listOf<Class<out UElement>>(UClass::class.java)
-    }*/
 
     override fun applicableSuperClasses(): List<String> {
         return mutableListOf<String>().apply {
@@ -28,17 +25,13 @@ class FragmentHiddenDetector : Detector(), Detector.UastScanner {
     override fun visitClass(context: JavaContext, declaration: UClass) {
         super.visitClass(context, declaration)
         declaration.methods.forEach {
-            if (it.name == "onHiddenChanged") {
+            if (it.name == "onHiddenChanged" && it.uastParameters.size == 1) {
                 context.report(
                     ISSUE, context.getLocation(it),
                     "凉凉了啊"
                 )
             }
         }
-        /*   context.report(
-               ISSUE, context.getLocation(declaration as UElement),
-               "凉凉了啊"
-           )*/
     }
 
 
