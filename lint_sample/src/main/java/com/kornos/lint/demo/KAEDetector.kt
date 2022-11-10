@@ -25,14 +25,6 @@ class KAEDetector : Detector(), Detector.GradleScanner {
                 return
             }
         }
-     /*   if (statement == "plugins") {
-            unnamedArguments.forEach {
-                if (it.contains("kotlin-android-extensions")) {
-                    report(context, cookie, ISSUE, "boom")
-                    return
-                }
-            }
-        }*/
         if (parent == "plugins") {
             if (statement == "id") {
                 unnamedArguments.forEach {
