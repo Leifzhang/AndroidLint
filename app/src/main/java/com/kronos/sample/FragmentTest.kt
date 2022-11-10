@@ -25,4 +25,5 @@ class FragmentTest : NewTestFragment() {
         super.onViewCreated(view, savedInstanceState)
         val image = view.findViewById<ImageView>(R.id.tv1)
     }
+
 }
